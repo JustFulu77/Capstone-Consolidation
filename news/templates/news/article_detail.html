@@ -1,0 +1,12 @@
+{% extends 'news/base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ article.title }}</h2>
+<p><strong>Author:</strong> {{ article.author.username }}</p>
+<p><strong>Publisher:</strong> {{ article.publisher.name }}</p>
+<p>{{ article.content }}</p>
+
+<a href="{% url 'reader-articles' %}">Back to Articles</a>
+{% endblock %}

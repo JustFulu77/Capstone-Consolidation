@@ -1,0 +1,156 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<style>
+    /* Old-school news theme styling */
+    body {
+        background-color: #f5e6d3; /* light brown background */
+        font-family: "Georgia", "Times New Roman", serif;
+        color: #3e2f1c; /* dark brown text */
+    }
+    h1, h2 {
+        color: #4b2e1c;
+        border-bottom: 2px solid #4b2e1c;
+        padding-bottom: 5px;
+    }
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 50px;
+        border-bottom: 3px solid #4b2e1c;
+        padding-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+    th, td {
+        border: 1px solid #4b2e1c;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #4b2e1c;
+        color: #fff;
+    }
+    tr:nth-child(even) {
+        background-color: #e0c9a6;
+    }
+    button, select {
+        background-color: #4b2e1c;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    button:hover, select:hover {
+        opacity: 0.8;
+    }
+    .section {
+        margin-bottom: 50px;
+    }
+</style>
+
+<!-- Publisher Name Heading -->
+<div class="section">
+    <h1>{{ publisher.name }}</h1>
+</div>
+
+<!-- Editors Section -->
+<div class="section">
+    <h2>Editors</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for editor in current_editors %}
+            <tr>
+                <td>{{ editor.username }}</td>
+                <td>{{ editor.email }}</td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="remove_user" value="{{ editor.id }}">
+                        <input type="hidden" name="role_type" value="Editor">
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No editors added yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="role_type" value="Editor">
+        <select name="add_user" required>
+            <option value="">-- Add Editor --</option>
+            {% for user in all_users %}
+                {% if user.role == 'Editor' %}
+                    <option value="{{ user.id }}">{{ user.username }} ({{ user.email }})</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+<!-- Journalists Section -->
+<div class="section">
+    <h2>Journalists</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for journalist in current_journalists %}
+            <tr>
+                <td>{{ journalist.username }}</td>
+                <td>{{ journalist.email }}</td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="remove_user" value="{{ journalist.id }}">
+                        <input type="hidden" name="role_type" value="Journalist">
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No journalists added yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="role_type" value="Journalist">
+        <select name="add_user" required>
+            <option value="">-- Add Journalist --</option>
+            {% for user in all_users %}
+                {% if user.role == 'Journalist' %}
+                    <option value="{{ user.id }}">{{ user.username }} ({{ user.email }})</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+{% endblock %}

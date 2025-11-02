@@ -1,0 +1,20 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Newsletter Details{% endblock %}
+
+{% block content %}
+<div>
+    <h2>{{ newsletter.title }}</h2>
+    <p>{{ newsletter.content }}</p>
+    <p><strong>Author:</strong> {{ newsletter.author.username }}</p>
+    <p><strong>Publisher:</strong>
+        {% if newsletter.publisher %}
+            {{ newsletter.publisher.name }}
+        {% else %}
+            Independent
+        {% endif %}
+    </p>
+    <p><strong>Approved:</strong> {{ newsletter.approved }}</p>
+    <a href="{% url 'reader-articles' %}" class="btn-approve">Back to All Articles & Newsletters</a>
+</div>
+{% endblock %}

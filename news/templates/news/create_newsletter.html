@@ -1,0 +1,25 @@
+{% extends 'news/base.html' %}
+{% block title %}Create Newsletter{% endblock %}
+
+{% block content %}
+<h2>Create Newsletter</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {{ form.title.label_tag }}<br>
+    {{ form.title }}<br><br>
+
+    {{ form.content.label_tag }}<br>
+    {{ form.content }}<br><br>
+
+    {{ form.publisher.label_tag }}<br>
+    {{ form.publisher }}<br><br>
+
+    <button type="submit" class="btn-approve">Create Newsletter</button>
+</form>
+
+<a href="{% url 'journalist-dashboard' %}">Back to Dashboard</a>
+{% endblock %}

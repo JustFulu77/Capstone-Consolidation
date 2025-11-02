@@ -1,0 +1,102 @@
+{% extends 'news/base.html' %}
+
+{% block title %}All Articles and Newsletters{% endblock %}
+
+{% block content %}
+<h2>Articles</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>View</th>
+            <th>Subscribe</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.title }}</td>
+            <td>{{ article.author.username }}</td>
+            <td>{% if article.publisher %}{{ article.publisher.name }}{% else %}N/A{% endif %}</td>
+            <td>
+                <a href="{% url 'article-detail' article.pk %}" class="btn-approve">Read</a>
+            </td>
+            <td>
+                {% if user.is_authenticated and user.role == 'Reader' %}
+                    <form action="{% url 'subscribe-author' article.author.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-subscribe">Subscribe Author</button>
+                    </form>
+                    {% if article.publisher %}
+                    <form action="{% url 'subscribe-publisher' article.publisher.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-subscribe">Subscribe Publisher</button>
+                    </form>
+                    {% endif %}
+                {% else %}
+                    <span>Login to subscribe</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No articles available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Newsletters</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>View</th>
+            <th>Subscribe</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for newsletter in newsletters %}
+        <tr>
+            <td>{{ newsletter.title }}</td>
+            <td>{{ newsletter.author.username }}</td>
+            <td>{% if newsletter.publisher %}{{ newsletter.publisher.name }}{% else %}N/A{% endif %}</td>
+            <td>
+                <a href="{% url 'newsletter-detail' newsletter.pk %}" class="btn-approve">Read</a>
+            </td>
+            <td>
+                {% if user.is_authenticated and user.role == 'Reader' %}
+                    <form action="{% url 'subscribe-author' newsletter.author.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-subscribe">Subscribe Author</button>
+                    </form>
+                    {% if newsletter.publisher %}
+                    <form action="{% url 'subscribe-publisher' newsletter.publisher.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-subscribe">Subscribe Publisher</button>
+                    </form>
+                    {% endif %}
+                {% else %}
+                    <span>Login to subscribe</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No newsletters available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if user.is_authenticated and user.role in 'Editor,Journalist' %}
+    <a href="{% url 'journalist-dashboard' %}" class="btn-approve">Back to Dashboard</a>
+{% endif %}
+
+{% endblock %}

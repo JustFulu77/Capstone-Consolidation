@@ -1,0 +1,101 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h2>Register</h2>
+
+<!-- Display messages -->
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<div class="registration-container">
+
+  <!-- Option A: Normal Registration -->
+  <div class="registration-section">
+    <h3>Option A: Normal Registration</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      <button type="submit" name="normal_registration" class="btn">Register</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <!-- Option B: Register Existing Publisher -->
+  <div class="registration-section">
+    <h3>Option B: Register Existing Publisher</h3>
+    <p>If your publisher already exists in the system, register here to create a login for them.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ publisher_form.as_p }}
+      <button type="submit" name="existing_publisher_registration" class="btn">Register Publisher</button>
+    </form>
+  </div>
+
+</div>
+
+<p><a href="{% url 'login' %}">Already have an account? Login</a></p>
+
+<style>
+  .registration-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .registration-section {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .messages {
+    list-style: none;
+    padding: 0;
+  }
+
+  .messages li {
+    background: #e9ffe9;
+    border: 1px solid #b5e7b5;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  .messages li.error {
+    background: #ffe9e9;
+    border: 1px solid #e7b5b5;
+  }
+</style>
+
+{% endblock %}

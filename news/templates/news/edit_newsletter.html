@@ -1,0 +1,49 @@
+{% extends 'news/base.html' %}
+{% block title %}Edit Newsletter{% endblock %}
+
+{% block content %}
+
+{% if role == 'Editor' %}
+    <h2>Edit Newsletter as Editor</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {{ form.title.label_tag }}<br>
+        {{ form.title }}<br><br>
+
+        {{ form.content.label_tag }}<br>
+        {{ form.content }}<br><br>
+
+        {{ form.publisher_display.label_tag }}<br>
+        {{ form.publisher_display }}<br><br>
+
+        <button type="submit" name="action" value="save" class="btn-approve">Save</button>
+        <button type="submit" name="action" value="approve" class="btn-approve">Approve</button>
+        <button type="submit" name="action" value="reject" class="btn-reject">Reject</button>
+    </form>
+    <a href="{% url 'editor-dashboard' %}">Back to Dashboard</a>
+
+{% elif role == 'Journalist' %}
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        {{ form.title.label_tag }}<br>
+        {{ form.title }}<br><br>
+
+        {{ form.content.label_tag }}<br>
+        {{ form.content }}<br><br>
+
+        {{ form.publisher.label_tag }}<br>
+        {{ form.publisher }}<br><br>
+
+        <button type="submit" class="btn-approve">Save Changes</button>
+    </form>
+
+    <p><strong>Approved:</strong> {{ newsletter.approved }}</p>
+    <a href="{% url 'journalist-dashboard' %}">Back to Dashboard</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,32 @@
+ECHO is on.
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+/static/
+/media/
+
+# Virtual environments
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+
+# Environment variables and secrets
+.env
+.env.local
+.env.prod
+.env.dev
+
+# Sphinx build directory
+docs/_build/

@@ -1,0 +1,20 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Approve Article{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center; border-bottom: 2px solid #5b3a29; padding-bottom:10px;">Approve Article</h2>
+
+<div style="margin-top:30px; background-color:#fff8dc; padding:20px; border-radius:5px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+    <h3>{{ article.title }}</h3>
+    <p><strong>Author:</strong> {{ article.author.username }}</p>
+    <p><strong>Submitted On:</strong> {{ article.created_at|date:"F j, Y" }}</p>
+    <p style="margin-top:15px;">Are you sure you want to approve this article for publishing?</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-approve">Approve</button>
+        <a href="{% url 'journalist-dashboard' %}" class="btn-approve">Cancel</a>
+    </form>
+</div>
+{% endblock %}

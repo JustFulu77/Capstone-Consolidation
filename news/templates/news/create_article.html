@@ -1,0 +1,32 @@
+{% extends 'news/base.html' %}
+{% block title %}Create Article{% endblock %}
+
+{% block content %}
+<h2>Create a New Article</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {{ form.title.label_tag }}<br>
+    {{ form.title }}<br><br>
+
+    {{ form.content.label_tag }}<br>
+    {{ form.content }}<br><br>
+
+    {{ form.publisher.label_tag }}<br>
+    {{ form.publisher }}<br><br>
+
+    {{ form.is_newsletter.label_tag }}<br>
+    {{ form.is_newsletter }}<br><br>
+
+    <button type="submit" class="btn-approve" style="background-color: #222; color: #fff; padding: 10px 20px; border: none; cursor: pointer;">
+        Publish
+    </button>
+</form>
+
+<a href="{% url 'journalist-dashboard' %}" style="text-decoration: underline; color: blue; display:inline-block; margin-top: 20px;">
+    Back to Dashboard
+</a>
+{% endblock %}

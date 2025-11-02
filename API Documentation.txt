@@ -1,0 +1,133 @@
+API Documentation for Newsletter Project
+=======================================
+
+Base URL:
+---------
+http://localhost:8000/api/
+
+Endpoints
+---------
+
+1. List all articles
+-------------------
+Endpoint: /articles/
+Method: GET
+Description: Retrieve a list of all published articles.
+Request body: None
+Response example:
+[
+  {
+    "id": 1,
+    "title": "New Django Release",
+    "content": "Django 5.2.7 has been released...",
+    "author": "John Doe",
+    "published_date": "2025-10-23T12:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "REST API Tips",
+    "content": "How to build efficient REST APIs...",
+    "author": "Jane Smith",
+    "published_date": "2025-10-20T10:30:00Z"
+  }
+]
+
+2. Retrieve a single article
+----------------------------
+Endpoint: /articles/<id>/
+Method: GET
+Description: Retrieve details of a single article by its ID.
+Response example:
+{
+  "id": 1,
+  "title": "New Django Release",
+  "content": "Django 5.2.7 has been released...",
+  "author": "John Doe",
+  "published_date": "2025-10-23T12:00:00Z"
+}
+
+3. Create a new article
+-----------------------
+Endpoint: /articles/
+Method: POST
+Description: Create a new article (editor access required).
+Request body example:
+{
+  "title": "How to Use Django Environ",
+  "content": "This article explains how to use django-environ for .env management",
+  "author": 1
+}
+Response example:
+{
+  "id": 3,
+  "title": "How to Use Django Environ",
+  "content": "This article explains how to use django-environ for .env management",
+  "author": "John Doe",
+  "published_date": "2025-10-23T15:00:00Z"
+}
+
+4. Update an article
+--------------------
+Endpoint: /articles/<id>/
+Method: PUT or PATCH
+Description: Update an existing article (editor access required).
+Request body example:
+{
+  "title": "Updated Article Title",
+  "content": "Updated article content..."
+}
+Response example:
+{
+  "id": 3,
+  "title": "Updated Article Title",
+  "content": "Updated article content...",
+  "author": "John Doe",
+  "published_date": "2025-10-23T15:00:00Z"
+}
+
+5. Delete an article
+--------------------
+Endpoint: /articles/<id>/
+Method: DELETE
+Description: Delete an article (editor access required).
+Response: HTTP 204 No Content
+
+6. Subscribe to an author
+-------------------------
+Endpoint: /subscribe/
+Method: POST
+Description: Subscribe a reader to an author to receive notifications when the author publishes a new article.
+Request body example:
+{
+  "author_id": 2,
+  "reader_id": 5
+}
+Response example:
+{
+  "message": "You are now subscribed to Jane Smith"
+}
+
+7. List subscribers for an author
+---------------------------------
+Endpoint: /authors/<id>/subscribers/
+Method: GET
+Description: Retrieve a list of all subscribers for a specific author.
+Response example:
+[
+  {
+    "id": 5,
+    "username": "reader1",
+    "email": "reader1@example.com"
+  },
+  {
+    "id": 8,
+    "username": "reader2",
+    "email": "reader2@example.com"
+  }
+]
+
+8. Authentication
+-----------------
+Use token-based authentication (Django REST Framework authtoken) for creating, updating, and deleting articles.
+Include the header in requests:
+Authorization: Token <your_token_here>
