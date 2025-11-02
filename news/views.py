@@ -23,6 +23,21 @@ def home(request):
 # ----------------------------
 # Journalist Dashboard
 # ----------------------------
+"""
+ 
+ Display the dashboard for journalists.
+
+    Only users with the 'Journalist' role can access this view.  
+    Shows articles and newsletters authored by the user or associated with publishers the user is assigned to, including independent ones.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: Renders the journalist dashboard template with context containing:
+            - 'articles': queryset of relevant Article objects
+            - 'newsletters': queryset of relevant Newsletter objects
+    """
 @login_required
 def journalist_dashboard(request):
     if request.user.role != 'Journalist':
@@ -127,6 +142,26 @@ def editor_dashboard_action(request, item_type, pk):
 # ----------------------------
 # Publisher Dashboard
 # ----------------------------
+"""
+    Display the dashboard for publishers.
+
+    Only users with the 'Publisher' role can access this view.  
+    Allows managing editors and journalists linked to the publisher account:
+        - Add or remove users from editors/journalists.
+        - View current editors and journalists under the publisher.
+    
+    Handles GET requests to display data and POST requests to update user roles.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: Renders the publisher dashboard template with context containing:
+            - 'publisher': Publisher instance linked to the logged-in user
+            - 'all_users': queryset of all users eligible to be added
+            - 'current_editors': queryset of current editors under the publisher
+            - 'current_journalists': queryset of current journalists under the publisher
+    """
 @login_required
 def publisher_dashboard(request):
     if request.user.role != 'Publisher':
@@ -175,8 +210,21 @@ def publisher_dashboard(request):
     return render(request, 'news/publisher_dashboard.html', context)
 
 
-# Update RoleBasedLoginView for Publisher
+
 class RoleBasedLoginView(LoginView):
+    """
+    Custom login view that redirects users based on their role after authentication.
+
+    Roles handled:
+        - Editor -> redirects to /editor/
+        - Journalist -> redirects to /journalist/
+        - Publisher -> redirects to /publisher/
+        - Others -> redirects to /articles/
+
+    Methods:
+        get_redirect_url(): Determines the URL to redirect the user to after login.
+    """
+
     def get_redirect_url(self):
         user = self.request.user
         if user.is_authenticated:

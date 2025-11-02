@@ -7,6 +7,21 @@ from django.utils import timezone
 # Custom User Model
 # ---------------------------------
 class CustomUser(AbstractUser):
+    """
+    Custom user model extending Django's AbstractUser.
+
+    Adds a role field to distinguish between Readers, Publishers, Editors, and Journalists.
+    Includes fields specific to Reader users:
+        - subscribed_publishers: Publishers the reader is subscribed to
+        - subscribed_authors: Authors the reader follows
+        - wants_notifications: Whether the reader wants email notifications
+
+    Methods:
+        save(*args, **kwargs): Overrides the default save method to clean up fields
+            that are irrelevant to the user's role.
+        __str__(): Returns the username as the string representation.
+    """
+
     ROLE_CHOICES = (
         ('Reader', 'Reader'),
         ('Publisher', 'Publisher'),

@@ -8,6 +8,20 @@ from .models import CustomUser, Publisher, Article, Newsletter
 # Article Form
 # ----------------------------
 class ArticleForm(forms.ModelForm):
+    """
+    Form for creating and editing Article instances.
+
+    Dynamically filters the publisher field based on the user's role:
+        - Editors see a read-only display of the publisher for existing articles.
+        - Journalists see only publishers they are assigned to, or can select 'Independent'.
+
+    Attributes:
+        publisher (ModelChoiceField): Allows selecting a publisher or marking as Independent.
+
+    Methods:
+        __init__(*args, **kwargs): Customize form fields based on the user role.
+    """
+
     publisher = forms.ModelChoiceField(
         queryset=Publisher.objects.none(),
         required=False,
