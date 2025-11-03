@@ -30,3 +30,6 @@ build/
 
 # Sphinx build directory
 docs/_build/
+
+#Dockerfile
+Dockerfile
