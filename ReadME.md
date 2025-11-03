@@ -95,5 +95,5 @@ The project folder is organized as follows, in descending order:
 1. Clone the repository:
 
 ```bash
-git clone <your-public-repo-url>
+git clone https://github.com/JustFulu77/Capstone-Consolidation.git
 cd Newsletter
