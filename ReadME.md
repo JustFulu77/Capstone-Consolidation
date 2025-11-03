@@ -70,6 +70,7 @@ The project folder is organized as follows, in descending order:
    - **README.md** — Documentation for the project  
    - **requirements.txt** — List of dependencies used in the project  
    - **db.sqlite3** — Local development database  
+   - **Dockerfile** — Container setup for Docker deployment  
    - **news/** — Main application folder containing all logic  
      - **views.py** — Contains all view functions for handling requests  
      - **models.py** — Defines database models for articles, users, and subscriptions  
@@ -82,17 +83,17 @@ The project folder is organized as follows, in descending order:
        - **create_newsletter.html**  
        - **journalist_dashboard.html**  
        - **editor_dashboard.html**  
-       - **additional templates for publishers, readers, etc.**
+       - **additional templates for publishers, readers, etc.**  
+   - **docs/** — Generated Sphinx documentation  
 
 ---
 
-## 6. Notification Safety Features
-- All tweets are wrapped in error handling, so X API failures will not crash the app  
-- Email sending uses Django’s `send_mail()` and includes fail-safe logging for success/failure tracking  
-- Independent articles are included in notifications **only if the subscriber is subscribed to that specific journalist**  
+## 6. Setup Instructions
 
----
+### A. Using Virtual Environment (venv)
 
-## 7. Summary
-The **Newsletter Project** streamlines content publishing by dividing user roles and automating notifications.  
-Readers stay informed, journalists focus on creation, editors maintain quality control, and publishers manage overall content flow — all in one cohesive system.
+1. Clone the repository:
+
+```bash
+git clone <your-public-repo-url>
+cd Newsletter
