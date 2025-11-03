@@ -3,5 +3,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('news.urls_api')),  # Make sure the app folder is named 'news'
+    path('api/', include('news.urls_api')),  # all API URLs will now be under /api/
 ]

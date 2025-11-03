@@ -5,7 +5,8 @@ from django.db.models import Q
 from django.utils import timezone
 from .models import Article, Newsletter, Publisher
 from .serializers import ArticleSerializer, NewsletterSerializer
-from .notifications import notify_subscribers  # This will handle tweets and emails
+from .notifications import notifications as notify_subscribers
+
 
 # ----------------------------
 # Custom Permission

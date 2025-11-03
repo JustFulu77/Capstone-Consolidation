@@ -30,17 +30,6 @@
 
   <hr>
 
-  <!-- Option B: Register Existing Publisher -->
-  <div class="registration-section">
-    <h3>Option B: Register Existing Publisher</h3>
-    <p>If your publisher already exists in the system, register here to create a login for them.</p>
-    <form method="post">
-      {% csrf_token %}
-      {{ publisher_form.as_p }}
-      <button type="submit" name="existing_publisher_registration" class="btn">Register Publisher</button>
-    </form>
-  </div>
-
 </div>
 
 <p><a href="{% url 'login' %}">Already have an account? Login</a></p>
