@@ -1,99 +1,87 @@
 # Newsletter Project
 
-## 1. Project Overview
-**Newsletter** is a Django-based web application designed for publishing and managing articles, newsletters, and user subscriptions. It supports multiple user roles — Readers, Journalists, Editors, and Publishers — each with specific permissions to ensure a smooth workflow and proper oversight of content.
+A Django-based web application for creating, publishing, and managing newsletters and articles with structured user roles and automated subscriber notifications.
 
-### Key Features
-- Custom user registration and authentication (`CustomUser` model)
-- Readers can view articles, subscribe to authors and publishers, and receive email notifications
-- Journalists can submit and edit articles and newsletters
-- Editors can approve, reject, edit, or delete content but **cannot create** new articles or newsletters
-- Publishers can manage journalists, approve final content, and oversee all publications
-- Automatic email notifications are sent to subscribers when approved articles or newsletters are published
-- REST API endpoints allow external integration through `views_api.py` and `urls_api.py`
-- Role-based dashboards ensure every user has tailored access and permissions
+## Description
 
----
+The **Newsletter Project** provides a multi-role publishing platform where readers, journalists, editors, and publishers can work together efficiently. Journalists submit content, editors review and approve, and publishers finalize publication. Readers can subscribe to specific authors or publishers and automatically receive email notifications when new content is released. The system also includes REST API endpoints and optional Twitter (X) integration for automatic post sharing.
 
-## 2. User Roles and Permissions
+## Getting Started
 
-### **Reader**
-- Can view all approved articles and newsletters  
-- Can subscribe to publishers or journalists  
-- Receives email notifications when subscribed authors or publishers release approved content  
+### Dependencies
 
-### **Journalist**
-- Can create and edit **articles** and **newsletters**  
-- Cannot approve or publish their own work — all submissions require editor approval  
-- Can view status updates of submitted content (e.g., Pending, Approved, or Rejected)
+Before running this project, ensure you have the following installed:
 
-### **Editor**
-- Can view, approve, reject, edit, or delete any article or newsletter  
-- **Cannot create** new articles or newsletters  
-- Ensures content quality and compliance before publication  
+* Python 3.11+
+* Django 5.2.7
+* MySQL (or SQLite for development)
+* pip (Python package manager)
+* Docker (optional)
 
-### **Publisher**
-- Can view and manage all journalists under their organization  
-- Has authority to approve and publish content from their associated journalists  
-- Oversees subscriptions, ensuring readers receive content promptly  
+All Python dependencies are listed below (from `requirements.txt`):
 
----
 
-## 3. Notifications System
+### Installing
 
-Once an article or newsletter is approved by an editor or publisher:
-- An **email notification** is automatically sent to all subscribers of the respective journalist and/or publisher  
-- A **tweet** is also sent from the linked X (Twitter) account (if credentials and API access allow)
+Follow the steps below to set up the project locally:
 
-If Twitter posting fails due to API restrictions, the system continues running without interruption — email delivery remains unaffected.
+1. Clone the repository
+2. Create a virtual environment
+3. Activate the virtual environment
+4. Install all required dependencies
+5. Create a `.env` file in the project root with your environment variables
+6. Run migrations to prepare your database
+7. Start the development server
 
----
+Once running, open your browser and go to **http://127.0.0.1:8000**.
 
-## 4. Subscription Logic
+### Executing Program
 
-Users can subscribe to:
-- **Publishers:** to receive updates from all journalists associated with that publisher  
-- **Journalists:** to receive all independent and publisher-linked posts from that journalist  
+To run the program using Docker:
 
-When a new article or newsletter is published:
-- Subscribers of the journalist always receive it (even if it’s independent)  
-- Subscribers of a publisher receive it only if the journalist’s content is published under that publisher  
+1. Build the Docker image:
 
----
+2. Run the Docker container:
 
-## 5. Folder Structure Overview
 
-The project folder is organized as follows, in descending order:
+Access the app at **http://localhost:8000** after the container starts.
 
-1. **newsletter/** — The main project directory  
-   - **manage.py** — The primary Django management script  
-   - **README.md** — Documentation for the project  
-   - **requirements.txt** — List of dependencies used in the project  
-   - **db.sqlite3** — Local development database  
-   - **Dockerfile** — Container setup for Docker deployment  
-   - **news/** — Main application folder containing all logic  
-     - **views.py** — Contains all view functions for handling requests  
-     - **models.py** — Defines database models for articles, users, and subscriptions  
-     - **forms.py** — Contains Django form classes for creating and editing data  
-     - **urls.py** — URL routing configuration for the app  
-     - **twitter_api.py** — Handles integration with X (Twitter) API  
-     - **notifications.py** — Manages email and tweet notifications for subscribers  
-     - **templates/news/** — Contains all HTML templates for rendering pages  
-       - **create_article.html**  
-       - **create_newsletter.html**  
-       - **journalist_dashboard.html**  
-       - **editor_dashboard.html**  
-       - **additional templates for publishers, readers, etc.**  
-   - **docs/** — Generated Sphinx documentation  
+## Help
 
----
+If you run into common issues, try the following:
 
-## 6. Setup Instructions
+* **Server not starting:** Check that `.env` is present and contains a valid `SECRET_KEY`.
+* **Database errors:** Ensure your `DATABASE_URL` is correct and that MySQL or SQLite is running properly.
+* **Docker not building:** Make sure Docker Desktop or the Docker Engine service is running on your system.
 
-### A. Using Virtual Environment (venv)
+You can also verify your Django configuration by running:
 
-1. Clone the repository:
 
-```bash
-git clone https://github.com/JustFulu77/Capstone-Consolidation.git
-cd Newsletter
+## Authors
+
+**Fulufhelo Ganyane**  
+GitHub: [JustFulu77](https://github.com/JustFulu77)
+
+## Version History
+
+* 0.2  
+    * Added Docker support and improved Sphinx documentation  
+    * Updated README for better setup clarity  
+    * See [commit history](https://github.com/JustFulu77/Capstone-Consolidation/commits)
+
+* 0.1  
+    * Initial release of Newsletter project  
+
+## License
+
+This project currently has **no license**.
+
+## Acknowledgments
+
+Inspiration, tools, and references used:
+
+* [awesome-readme](https://github.com/matiassingers/awesome-readme)
+* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
+* [dbader](https://github.com/dbader/readme-template)
+* [zenorocha](https://gist.github.com/zenorocha/4526327)
+* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
