@@ -28,8 +28,5 @@ build/
 .env.prod
 .env.dev
 
-# Sphinx build directory
-docs/_build/
-
 #Dockerfile
 Dockerfile
