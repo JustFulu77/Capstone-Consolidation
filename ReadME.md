@@ -50,8 +50,8 @@ Access the app at **http://localhost:8000** after the container starts.
 
 If you run into common issues, try the following:
 
-* **Server not starting:** Check that `.env` is present and contains a valid `SECRET_KEY`.
-* **Database errors:** Ensure your `DATABASE_URL` is correct and that MySQL or SQLite is running properly.
+* **Server not starting:** Check that `.env example.txt` for instructions.
+* **Database errors:** Ensure your `DATABASE_URL` is correct and that MariaDB is running properly.
 * **Docker not building:** Make sure Docker Desktop or the Docker Engine service is running on your system.
 
 You can also verify your Django configuration by running:
